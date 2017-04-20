@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Nuevo</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h3>Nuevo gasto</h3>
+	<ion-list>
+	
+		<ion-item>
+	    	<ion-label floating>Titulo</ion-label>
+	    	<ion-input type="text"></ion-input>
+	  	</ion-item>
+	  	
+	  	<ion-item>
+	   		<ion-label floating>Cantidad</ion-label>
+	   		<ion-input type="text"></ion-input>
+	  	</ion-item>
+	  	
+	  	<ion-item>
+	    	<ion-label floating>Tipo</ion-label>
+	    	<ion-select [(ngModel)]="types">
+	      		<ion-option value="food">Comida</ion-option>
+	      		<ion-option value="fuel">Gasolina</ion-option>
+	      		<ion-option value="shop">Compra</ion-option>
+	      		<ion-option value="cloth">Ropa</ion-option>
+	      		<ion-option value="animals">Animalitos</ion-option>
+	      		<ion-option value="other">Otro</ion-option>
+	    	</ion-select>
+	  	</ion-item>
+	  	
+	  	<ion-item>
+	    	<ion-label floating>Descripción</ion-label>
+	    	<ion-input type="text"></ion-input>
+	  	</ion-item>
+	</ion-list>
+	<button (click)="buttonTapped($event)" ion-button full>Crear</button>
+</ion-content>
