@@ -3,6 +3,8 @@ import { NavController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
+import { Gasto } from '../../app/models/gasto';
+
 @Component({
   selector: 'page-add',
   templateUrl: 'add.html'
@@ -13,21 +15,26 @@ export class AddPage {
     public navCtrl: NavController, 
     public toastCtrl: ToastController, 
     public storage: Storage) {
-      this.presentToast();
-    
-    
+      storage.ready().then(() => {
+          storage.set('name', 'Max');
+          this.presentToast(storage.get('name'));
+      });
   }
-  
-  buttonTapped(event, storage: Storage) {
+
+  buttonTapped( storage: Storage) {
+
     storage.ready().then(() => {
        storage.set('name', 'Max');
+       this.presentToast(storage.get('name'));
     });
+
     this.navCtrl.push(AddPage);
   }
   
-  presentToast() {
+  presentToast(texto) {
+
     let toast = this.toastCtrl.create({
-      message: 'Gasto añadido correctamente',
+      message: texto,
       duration: 3000
     });
     toast.present();

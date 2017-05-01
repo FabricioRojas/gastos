@@ -9,7 +9,6 @@ import { ListPage } from '../pages/list/list';
 import { AddPage } from '../pages/add/add';
 import { DetailsPage } from '../pages/details/details';
 
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
