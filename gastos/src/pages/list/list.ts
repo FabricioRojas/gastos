@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { Platform } from 'ionic-angular';
 import { TasksService } from '../../providers/tasks-service';
 
 import { DetailsPage } from '../details/details';
@@ -14,11 +13,9 @@ import { AddPage } from '../add/add';
 export class ListPage {
 
   tasks: any[] = [];
-  public people: Array<Object>;
-
   selectedItem: any;
-  icons: string[];
   items: Array<{
+            id: number,
             title: string,
             quantity: string,
             types: string,
@@ -26,49 +23,39 @@ export class ListPage {
             icon: string
           }>;
 
-  constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    private platform: Platform,
-    public tasksService: TasksService) {
-
-    // If we navigated to this page, we will have an item available as a nav param
+  constructor( public navCtrl: NavController, public navParams: NavParams, public tasksService: TasksService) {
+    tasksService.getAll().then(expenses => { this.loadExpenses(expenses) });
     this.selectedItem = navParams.get('item');
+  }
 
-    // Let's populate this page with some filler content for funzies
-    this.icons = ['md-cart', 'md-paw', 'md-restaurant'];
+  deleteExpense(id){
+    this.tasksService.delete(id);
+    this.tasksService.getAll().then(expenses => { this.loadExpenses(expenses) });
+  }
 
+  doRefresh(refresher) {
+    setTimeout(() => {
+       this.tasksService.getAll().then(expenses => { this.loadExpenses(expenses) });
+       refresher.complete();
+    }, 2000);
+  }
+
+  loadExpenses(expenses){
     this.items = [];
-//    console.log("tareas", this.getAllTasks())
-    for (let i = 0; i < 3; i++) {
+    console.log('expenses', expenses);
+    for (let i = 0; i < expenses.length; i++) {
       this.items.push({
-        title: 'Item ' + i,
-        quantity: '5',
-        description: 'This is item #' + i,
-        types: 'gasolina',
-        icon: this.icons[i]
+        id: expenses[i].id,
+        title: expenses[i].title,
+        quantity: expenses[i].quantity,
+        description: expenses[i].description,
+        types: expenses[i].types,
+        icon: expenses[i].icon
       });
     }
   }
 
-  getAllTasks(){
-    this.tasksService.getAll()
-    .then(tasks => {
-      this.tasks = tasks;
-    })
-    .catch( error => {
-      console.error( error );
-    });
-  }
+  itemTapped(item) { this.navCtrl.push(DetailsPage, { item: item }); }
 
-  itemTapped(event, item) {
-    // That's right, we're pushing to ourselves!
-    this.navCtrl.push(DetailsPage, {
-      item: item
-    });
-  }
-
-  buttonTapped(event) {
-    this.navCtrl.push(AddPage);
-  }
+  buttonTapped(event) { this.navCtrl.push(AddPage); }
 }

@@ -19,22 +19,22 @@ export class TasksService {
   }
 
   create(task: any){
-    let sql = 'INSERT INTO tasks(title, completed) VALUES(?,?)';
-    return this.db.executeSql(sql, [task.title, task.completed]);
+    let sql = 'INSERT INTO gasto(title, quantity, description, types, icon) VALUES(?,?,?,?,?)';
+    return this.db.executeSql(sql, [task.title, task.quantity, task.description, task.types, task.icon]);
   }
 
   createTable(){
-    let sql = 'CREATE TABLE IF NOT EXISTS tasks(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, completed INTEGER)';
+    let sql = 'CREATE TABLE IF NOT EXISTS gasto(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, quantity TEXT,  description TEXT, types TEXT, icon TEXT)';
     return this.db.executeSql(sql, []);
   }
 
-  delete(task: any){
-    let sql = 'DELETE FROM tasks WHERE id=?';
-    return this.db.executeSql(sql, [task.id]);
+  delete(id){
+    let sql = 'DELETE FROM gasto WHERE id=?';
+    return this.db.executeSql(sql, [id]);
   }
 
   getAll(){
-    let sql = 'SELECT * FROM tasks';
+    let sql = 'SELECT * FROM gasto';
     return this.db.executeSql(sql, [])
     .then(response => {
       let tasks = [];
@@ -47,7 +47,7 @@ export class TasksService {
   }
 
   update(task: any){
-    let sql = 'UPDATE tasks SET title=?, completed=? WHERE id=?';
+    let sql = 'UPDATE gasto SET title=?, completed=? WHERE id=?';
     return this.db.executeSql(sql, [task.title, task.completed, task.id]);
   }
 

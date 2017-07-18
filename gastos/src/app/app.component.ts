@@ -15,8 +15,8 @@ import { AddPage } from '../pages/add/add';
 export class Gastos {
   @ViewChild(Nav) nav: Nav;
 
-  //rootPage: any = AddPage;
-  rootPage: any = ListPage;
+  rootPage: any = HomePage;
+//  rootPage: any = ListPage;
 
   pages: Array<{title: string, component: any}>;
 
@@ -41,8 +41,6 @@ export class Gastos {
   initializeApp() {
        this.platform.ready().then(() => {
          console.log('platform.ready');
-         // Okay, so the platform is ready and our plugins are available.
-         // Here you can do any higher level native things you might need.
          this.statusBar.styleDefault();
          this.splashScreen.hide();
          this.createDatabase();
@@ -53,7 +51,7 @@ export class Gastos {
        console.log('createDatabase');
        this.sqlite.create({
              name: 'data.db',
-             location: 'default' // the location field is required
+             location: 'default'
            })
            .then((db) => {
              this.tasksService.setDatabase(db);
@@ -66,8 +64,6 @@ export class Gastos {
      }
 
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
 }

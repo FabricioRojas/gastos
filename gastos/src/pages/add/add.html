@@ -9,34 +9,36 @@
 
 <ion-content padding>
   <h3>Nuevo gasto</h3>
-	<ion-list>
-	
-		<ion-item>
-	    	<ion-label floating>Titulo</ion-label>
-	    	<ion-input type="text"></ion-input>
-	  	</ion-item>
-	  	
-	  	<ion-item>
-	   		<ion-label floating>Cantidad</ion-label>
-	   		<ion-input type="text"></ion-input>
-	  	</ion-item>
-	  	
-	  	<ion-item>
-	    	<ion-label floating>Tipo</ion-label>
-	    	<ion-select [(ngModel)]="types">
-	      		<ion-option value="food">Comida</ion-option>
-	      		<ion-option value="fuel">Gasolina</ion-option>
-	      		<ion-option value="shop">Compra</ion-option>
-	      		<ion-option value="cloth">Ropa</ion-option>
-	      		<ion-option value="animals">Animalitos</ion-option>
-	      		<ion-option value="other">Otro</ion-option>
-	    	</ion-select>
-	  	</ion-item>
-	  	
-	  	<ion-item>
-	    	<ion-label floating>Descripción</ion-label>
-	    	<ion-input type="text"></ion-input>
-	  	</ion-item>
-	</ion-list>
-	<button (click)="buttonTapped($event)" ion-button full>Crear</button>
+  <form #f="ngForm" (ngSubmit)="buttonTapped(f)">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Titulo</ion-label>
+        <ion-input [(ngModel)]="expense.title" name="title" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-label floating>Cantidad</ion-label>
+          <ion-input [(ngModel)]="expense.quantity" name="quantity" type="number" step="0.1" min="0.1" required></ion-input>
+        </ion-item>
+      <ion-item>
+        <ion-label floating>DescripciÃ³n</ion-label>
+        <ion-input [(ngModel)]="expense.description" name="description" type="text"></ion-input>
+      </ion-item>
+      <br>
+      <ion-item>
+          <ion-label>Tipo</ion-label>
+          <ion-select [(ngModel)]="expense.types" name="types" required>
+              <ion-option value="Comida|0">Comida</ion-option>
+              <ion-option value="Gasolina|1">Gasolina</ion-option>
+              <ion-option value="Compra|2">Compra</ion-option>
+              <ion-option value="Ropa|3">Ropa</ion-option>
+              <ion-option value="Animalitos|4">Animalitos</ion-option>
+              <ion-option value="Otro|5">Otro</ion-option>
+          </ion-select>
+      </ion-item>
+
+
+    </ion-list>
+    <button type="submit" ion-button full>Crear</button>
+  </form>
 </ion-content>
