@@ -14,5 +14,21 @@
     If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
   </p>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  <ion-scroll scrollY="true"><ion-list>
+    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
+      <ion-icon [name]="item.icon" item-start></ion-icon>
+      {{item.title}}
+      <div class="item-note" item-end>
+        {{item.note}}
+      </div>
+    </button>
+  </ion-list>
+  </ion-scroll>
+  
+  
+</ion-content>
+<ion-content>
+   <ion-fab right bottom>
+    <button ion-fab mini (click)="presentModal()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 </ion-content>
